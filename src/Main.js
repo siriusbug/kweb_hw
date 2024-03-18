@@ -2,6 +2,8 @@ import './App.css';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Prof from './Prof'
+import Stud from './Stud'
 
 function Login(props) {
   const [id, setId] = useState("");
@@ -68,7 +70,7 @@ function Login(props) {
         // });
         }} /></p>
         </div>
-    
+        <br></br>
         <p>계정이 없으신가요?  <button onClick={() => {
           props.setMode("SIGNIN");
         }}>회원가입</button></p>
@@ -143,15 +145,12 @@ useEffect(() => {
 fetch("http://localhost:3001/authcheck")
   .then((res) => res.json())
   .then((json) => {        
-    if (json.isLogin === "True" || localStorage.getItem('isLogin') == 'True') {
-      if (json.isProf === "True"|| localStorage.getItem('isProf') == 'True') {
+    if (json.isLogin === "True") {
+      if (json.isProf === "True") {
         setMode("WELCOME PROF");
       }
-      else if (json.isProf === "FALSE") {
-        setMode("WELCOME STUD");
-      }
       else {
-        setMode("LOGIN");
+        setMode("WELCOME STUD");
       }
     }
     else {
@@ -169,9 +168,9 @@ else if (mode === 'SIGNIN') {
 content = <Signin setMode={setMode}></Signin> 
 }
 else if (mode === 'WELCOME PROF') {
-  // content = <Prof></Prof>
+//   content = <Prof></Prof>
   content = <>
-  <h2>{localStorage.getItem('u_id')}님, 메인 페이지에 오신 것을 환영합니다</h2>
+  <h2>교수님, 메인 페이지에 오신 것을 환영합니다</h2>
   <p>로그인에 성공하셨습니다.</p>
   <Link to="/prof">교수자 페이지</Link>
   <br></br>
@@ -179,14 +178,13 @@ else if (mode === 'WELCOME PROF') {
   </>
 }
 else if (mode === 'WELCOME STUD') {
-  // content = <Stud></Stud>
-  content = <>
-  <h2>{localStorage.getItem('u_id')}님, 메인 페이지에 오신 것을 환영합니다</h2>
-  <p>로그인에 성공하셨습니다.</p>
-  <Link to="/stud">학습자 페이지</Link>
-  <br></br>
-  <Link to="/logoutting">로그아웃</Link>
-  </>
+    content = <>
+    <h2>학습자님, 메인 페이지에 오신 것을 환영합니다</h2>
+    <p>로그인에 성공하셨습니다.</p>
+    <Link to="/stud">학습자 페이지</Link>
+    <br></br>
+    <Link to="/logoutting">로그아웃</Link>
+    </>
 }
 
 return (
