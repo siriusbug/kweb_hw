@@ -103,7 +103,7 @@ app.post('/checkid', (req, res) => {
             res.send(results)
         }
         else {                                         
-            sendData = "회원 정보에 문제가 있습니다!"
+            let sendData = "회원 정보에 문제가 있습니다!"
             res.send(sendData);
         }
     });
@@ -118,7 +118,7 @@ app.get('/courselist', (req, res) => {
             res.send(results)
         }
         else {                                         
-            sendData = "현재 열린 강의가 없습니다!"
+            let sendData = "현재 열린 강의가 없습니다!"
             res.send(sendData);
         }
     });
@@ -132,7 +132,7 @@ app.post('/viewcourses', (req, res) => {
             res.send(results)
         }
         else {                                         
-            sendData = "담당하시는 강의가 없습니다!"
+            let sendData = "담당하시는 강의가 없습니다!"
             res.send(sendData);  
         }
     });
